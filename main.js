@@ -1,4 +1,3 @@
-var urlBase = "https://hv2o9op7m2.execute-api.us-east-1.amazonaws.com/dev"
 
 var map = L.map('map', {
   zoomControl: true,

@@ -90,7 +90,7 @@
     </div>
   </div>
   </div>
-    <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -101,19 +101,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
     <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
 
-    <!-- <script src="https://unpkg.com/pbf@3.0.5/dist/pbf.js"></script>
-    <script src="https://unpkg.com/geobuf@3.0.2/dist/geobuf.js"></script> -->
-
-    <!-- <script src="js/leaflet-realtime.js"></script> -->
-    <!-- <script src="js/polyline.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
-    <!-- <script src="https://momentjs.com/downloads/moment-timezone-with-data-1970-2030.js"></script> -->
-    <!-- <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script> -->
-    <!-- <script src="depots.geojson.js"></script> -->
-    <!-- <script src="cleveland.geojson.js"></script> -->
     <script src="html2canvas.min.js"></script>
     <script src="leaflet_export.js"></script>
-    <!-- <script src="js/leaflet-messagebox.js"></script> -->
     <script src="js/leaflet.ajax.js"></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
@@ -122,14 +111,10 @@
     <script src="view.js"></script>
 
     <script>
-    // var ohio_layergroup = L.featureGroup();
     var ohio_boundary = new L.GeoJSON.AJAX(["ohio.geojson"], {style: { fillOpacity: 0, color: "black" }}).addTo(map);
     ohio_boundary.on('data:loaded', function() {
        map.fitBounds(ohio_boundary.getBounds())
      })
-    // console.log(ohio_boundary.getBounds())
-    // map.fitBounds(ohio_layergroup.getBounds());
-
     </script>
 
   </body>
