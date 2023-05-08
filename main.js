@@ -66,7 +66,8 @@ legend.onAdd = function (map) {
 
   labels.push('<i style="background:#1E88E5"></i> 30 mph');
   labels.push('<i style="background:#FFC107"></i> 35 mph');
-  labels.push('<i style="background:#D81B60"></i> 40 mph');
+  labels.push('<i style="background:#D81B60"></i> 40 mph<br>');
+  labels.push('<a href="ohio_30-40mph_streets.geojson"><i class="fas fa-save"></i> Download data</a>');
 div.innerHTML = labels.join('<br>');
   return div;
 };
