@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta name="twitter:card" content="summary"></meta>
+    <meta name="twitter:site" content="@trivisonno" />
+    <meta name="twitter:creator" content="@trivisonno" />
+    <meta property="og:url" content="https://plowcle.s3.amazonaws.com/view.html" />
+    <meta property="og:title" content="Speed Inspector - Ohio" />
+    <meta property="og:description" content="This snow plow map was made by Cleveland resident Angelo Trivisonno using open data provided by the City of Cleveland's Autmoatic Vehicle Location data feeds." />
+    <meta property="og:image" content="https://plowcle.s3.amazonaws.com/twittercard.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta charset="utf-8"/>
+    <title>Speed Inspector - Ohio</title>
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="plow.css" />
+    <!-- very important to meta viewport or else popups will be too small on screen-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+"stylesheet">
+
+<style>
+    #map {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+
+    .leaflet-tooltip-pane .text {
+        color: red;
+        font-weight: bold;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        font-size: 1.8em;
+    }
+
+    .info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,1); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+  .legend { text-align: left; line-height: 20px; color: #000;} .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.8; }
+
+  .progress-bar {
+      -webkit-transition: none !important;
+      transition: none !important;
+  }
+
+  .leaflet-control-messagebox {
+  	display: none; /* Initially hidden */
+  	border: 2px solid red;
+  	background-color: white;
+  	padding: 3px 10px;
+    font-size: 18px;
+    max-width: 50%;
+  }
+</style>
+  </head>
+
+  <body>
+    <div class="progress fixed-top" style="height:5px"><div class="progress-bar bg-info" id="timer" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div></div>
+  <!-- Image and text -->
+<nav class="navbar navbar-light bg-light fixed-bottom" style="padding:10px;background-color: #e3f2fd;">
+  <a class="navbar-brand" href="#">
+    Speed Inspector - Ohio
+  </a>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Learn more...</button>
+
+</nav>
+    <div id="map"></div>
+
+    <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Speed Inspector - Ohio</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>This map was made by Cleveland resident Angelo <a target="_blank" href="https://twitter.com/trivisonno">Trivisonno</a> using GIS data from OpenStreetMap.org ("OSM").</p>
+        <p>OpenStreetMap information is maintained by volunteer mappers, and may be incomplete or incorrect. Some streets may not have speed limit information tagged in OSM.</p>
+        <p>This map displays any street within Ohio having a speed limit of 30, 35, or 40 mph, and is not tagged with any state route information. These streets are likely under local control, and may be candidates for lower speed limits.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+    <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <script src="js/leaflet-src.js"></script>
+    <script src="js/leaflet-providers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+
+    <!-- <script src="https://unpkg.com/pbf@3.0.5/dist/pbf.js"></script>
+    <script src="https://unpkg.com/geobuf@3.0.2/dist/geobuf.js"></script> -->
+
+    <!-- <script src="js/leaflet-realtime.js"></script> -->
+    <!-- <script src="js/polyline.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
+    <!-- <script src="https://momentjs.com/downloads/moment-timezone-with-data-1970-2030.js"></script> -->
+    <!-- <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script> -->
+    <!-- <script src="depots.geojson.js"></script> -->
+    <!-- <script src="cleveland.geojson.js"></script> -->
+    <script src="html2canvas.min.js"></script>
+    <script src="leaflet_export.js"></script>
+    <!-- <script src="js/leaflet-messagebox.js"></script> -->
+    <script src="js/leaflet.ajax.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+
+    <script src="main.js"></script>
+    <script src="view.js"></script>
+
+    <script>
+    // var ohio_layergroup = L.featureGroup();
+    var ohio_boundary = new L.GeoJSON.AJAX(["ohio.geojson"], {style: { fillOpacity: 0, color: "black" }}).addTo(map);
+    ohio_boundary.on('data:loaded', function() {
+       map.fitBounds(ohio_boundary.getBounds())
+     })
+    // console.log(ohio_boundary.getBounds())
+    // map.fitBounds(ohio_layergroup.getBounds());
+
+    </script>
+
+  </body>
+
+</html>
